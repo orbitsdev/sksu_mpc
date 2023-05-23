@@ -129,6 +129,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.2"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -161,6 +169,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.0"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: "48a1b69be9544e2b03d9a8e843affd89e43f3194c9248776222efcb4206bb1ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.62.0"
+  flashy_tab_bar2:
+    dependency: "direct main"
+    description:
+      name: flashy_tab_bar2
+      sha256: "895affd69b757ae2a1461ddc42a3c04954a5bb4e2292373697e40c377e836153"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -214,6 +238,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.15"
+  flutter_staggered_grid_view:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "1312314293acceb65b92754298754801b0e1f26a1845833b740b30415bbbcf07"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -256,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.4"
+  heroicons:
+    dependency: "direct main"
+    description:
+      name: heroicons
+      sha256: "35151dab83218ad1aeba2c56813a74946e47b8a90221aeb3e78eb30da6002082"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   html:
     dependency: transitive
     description:
@@ -504,6 +544,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  responsive_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: responsive_navigation_bar
+      sha256: "5fa78f6a94553f4a4858dd51ee7661d04a478ecbf4f0c4e9e80021f72e2061cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.8"
   rxdart:
     dependency: transitive
     description:
@@ -512,6 +560,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  salomon_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: salomon_bottom_bar
+      sha256: e20abf2e449749432223a8b4e6647c212eef6c2b638e0ed8cc92eff9529c2b48
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.2"
   shimmer:
     dependency: "direct main"
     description:

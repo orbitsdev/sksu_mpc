@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 import 'package:sksumpc/views/home_screen.dart';
 import 'package:sksumpc/views/start/boarding_screen.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 void main(){
     WidgetsFlutterBinding.ensureInitialized();
+    runApp(const MyApp());
 }
 
 
@@ -30,12 +31,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return   GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
         colorSchemeSeed: AppColor.main,
-      ).copyWith(
         useMaterial3: true,
+      ).copyWith(
+        textTheme: TextTheme(
+          headline1: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          headline2: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          headline3: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          headline4: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          headline5: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          headline6: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          bodyText1: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+          bodyText2: GoogleFonts.poppins(textStyle: textTheme.bodyText2),
+        )
         
       ),
       home: authLogic(),
