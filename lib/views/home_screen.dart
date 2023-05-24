@@ -112,59 +112,61 @@ class _HomeScreenState extends State<HomeScreen>
       //     const H(20),
       //   ],
       // ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: 80,
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
-                  Builder(builder: (context) {
-                    return InkWell(
-                      onTap: () => openDrawer(context),
-                      borderRadius: BorderRadius.circular(4),
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: AppColor.main,
-                        ),
-                        child: HeroIcon(
-                            HeroIcons.bars3BottomLeft,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                    );
-                  }),
-
-               
-                  Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Image.asset(Asset.image('sksu_logo.png'),
-                            width: 33, height: 33),
-                        H(4),
-                        Image.asset(Asset.image('mpc_logo.png'),
-                            width: 34, height: 34),
-                        H(4),
-                        Image.asset(Asset.image('sksu_coop_logo.png'),
-                            width: 128),
-                      ],
+     body: SafeArea(
+  child: CustomScrollView(
+    slivers: [
+      SliverToBoxAdapter(
+        child: Container(
+          height: 80,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              Builder(builder: (context) {
+                return InkWell(
+                  onTap: () => openDrawer(context),
+                  borderRadius: BorderRadius.circular(4),
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: AppColor.main,
+                    ),
+                    child: HeroIcon(
+                      HeroIcons.bars3BottomLeft,
+                      color: Colors.white,
+                      size: 24,
                     ),
                   ),
-
-                    H( 6),
-                ],
+                );
+              }),
+              Flexible(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Image.asset(Asset.image('sksu_logo.png'),
+                        width: 33, height: 33),
+                    H(4),
+                    Image.asset(Asset.image('mpc_logo.png'),
+                        width: 34, height: 34),
+                    H(4),
+                    Image.asset(Asset.image('sksu_coop_logo.png'),
+                        width: 128),
+                  ],
+                ),
               ),
-            ),
-            Expanded(child: _pages[currentIndex]),
-          ],
+              H(6),
+            ],
+          ),
         ),
       ),
+      SliverFillRemaining(
+        child: _pages[currentIndex],
+      ),
+    ],
+  ),
+),
+
       bottomNavigationBar: SalomonBottomBar(
         selectedItemColor: AppColor.green2,
         unselectedItemColor: Colors.white,
