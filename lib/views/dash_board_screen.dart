@@ -9,7 +9,6 @@ import 'package:sksumpc/models/overview.dart';
 import 'package:sksumpc/utils/helpers/asset.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 
-
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
 
@@ -33,8 +32,19 @@ class DashBoardScreen extends StatelessWidget {
             ),
           )
               .animate()
-              .moveY(begin: -30, end: 0)
-              .fadeIn(duration: const Duration(milliseconds: 700)),
+              .moveY(
+                  begin: 10,
+                  end: 0,
+                  curve: Curves.easeInOut,
+                  duration: const Duration(
+                    milliseconds: 700,
+                  ))
+              .fadeIn(
+                duration: const Duration(
+                  milliseconds: 700,
+                ),
+                curve: Curves.easeInOut,
+              ),
           const V(8),
 
           Container(
@@ -52,40 +62,43 @@ class DashBoardScreen extends StatelessWidget {
               ),
               child: Row(children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.40,
-                  width: 140,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      height:80,
-                      width:80,
-                      Asset.image('undraw_data_processing_yrrv.svg'),
-
-                    ),
-                  )
-                      
-                ).animate()
-                      .moveX(
-                          begin: -10,
-                          end: 0,
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 700,))
-                      .fadeIn(),
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        width: 140,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            height: 80,
+                            width: 80,
+                            Asset.image('undraw_data_processing_yrrv.svg'),
+                          ),
+                        ))
+                    .animate()
+                    .moveX(
+                        begin: -10,
+                        end: 0,
+                        curve: Curves.easeInOut,
+                        duration: const Duration(
+                          milliseconds: 700,
+                        ))
+                    .fadeIn(),
                 Flexible(
                   child: Container(
                       child: const Center(
                     child: Text('Overview Highlights',
-                        style: TextStyle(height:1.2, fontSize: 28, color: Colors.white),
+                        style: TextStyle(
+                            height: 1.2, fontSize: 28, color: Colors.white),
                         textAlign: TextAlign.center),
-                  ).animate()
-                      .moveX(
-                          begin: 10,
-                          end: 0,
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 700,))
-                      .fadeIn()
-                  ),
+                  )
+                          .animate()
+                          .moveX(
+                              begin: 10,
+                              end: 0,
+                              curve: Curves.easeInOut,
+                              duration: const Duration(
+                                milliseconds: 700,
+                              ))
+                          .fadeIn()),
                 ),
-              ])), 
+              ])),
           const V(24),
           Expanded(
             child: MasonryGridView.count(
@@ -99,8 +112,16 @@ class DashBoardScreen extends StatelessWidget {
                   overview: overview[index],
                 )
                     .animate()
-                    .scale(duration: const Duration(milliseconds: 700, ),curve: Curves.easeInOut,)
-                    .fadeIn(duration: const Duration(milliseconds: 700),curve: Curves.easeInOut,);
+                    .scale(
+                      duration: const Duration(
+                        milliseconds: 700,
+                      ),
+                      curve: Curves.easeInOut,
+                    )
+                    .fadeIn(
+                      duration: const Duration(milliseconds: 700),
+                      curve: Curves.easeInOut,
+                    );
               },
             ),
           ),

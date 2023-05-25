@@ -16,6 +16,7 @@ class AppColor {
   static const Color grey1 = Color(0xffEDE9E9);
   static const Color grey2 = Color(0xffF7F7F7);
   static const Color darkBg = Color(0xff2C2C2C);
+  static const Color gold = Color(0xffFFD700 );
   static const Color secondaryText = Color.fromARGB(255, 136, 143, 135);
 
   static const Color borderLight = Color(0xffF1F1FF);
