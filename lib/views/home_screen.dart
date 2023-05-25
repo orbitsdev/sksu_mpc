@@ -3,11 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
+import 'package:sksumpc/components/h.dart';
 import 'package:sksumpc/utils/helpers/asset.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 import 'package:sksumpc/utils/themes/app_theme.dart';
 import 'package:sksumpc/views/dash_board_screen.dart';
-import 'package:sksumpc/widgets/h.dart';
+import 'package:sksumpc/views/loans_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,9 +22,7 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   List<Widget> _pages = [
     DashBoardScreen(),
-    Container(
-      child: Center(child: Text('page2')),
-    ),
+    LoansScreen(),
     Container(
       child: Center(child: Text('page3')),
     ),
@@ -35,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen>
     ),
   ];
 
-  int currentIndex = 0;
+  int currentIndex = 1;
   late TabController tabController;
 
   @override
@@ -63,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       drawer: Drawer(
         child: ListView(
           children: [
@@ -112,73 +110,72 @@ class _HomeScreenState extends State<HomeScreen>
       //     const H(20),
       //   ],
       // ),
-     body: SafeArea(
-  child: CustomScrollView(
-    slivers: [
-      SliverToBoxAdapter(
-        child: Container(
-          height: 80,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              Builder(builder: (context) {
-                return InkWell(
-                  onTap: () => openDrawer(context),
-                  borderRadius: BorderRadius.circular(4),
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: AppColor.main,
-                    ),
-                    child: HeroIcon(
-                      HeroIcons.bars3BottomLeft,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
-                );
-              }),
-              Flexible(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.white,
+                height: 80,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Image.asset(Asset.image('sksu_logo.png'),
-                        width: 33, height: 33),
-                    H(4),
-                    Image.asset(Asset.image('mpc_logo.png'),
-                        width: 34, height: 34),
-                    H(4),
-                    Image.asset(Asset.image('sksu_coop_logo.png'),
-                        width: 128),
+                    Builder(builder: (context) {
+                      return InkWell(
+                        onTap: () => openDrawer(context),
+                        borderRadius: BorderRadius.circular(4),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: AppColor.main,
+                          ),
+                          child: const HeroIcon(
+                            HeroIcons.bars3BottomLeft,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                      );
+                    }),
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image.asset(Asset.image('sksu_logo.png'),
+                              width: 33, height: 33),
+                          const H(4),
+                          Image.asset(Asset.image('mpc_logo.png'),
+                              width: 34, height: 34),
+                          const H(4),
+                          Image.asset(Asset.image('sksu_coop_logo.png'),
+                              width: 128),
+                        ],
+                      ),
+                    ),
+                    const H(6),
                   ],
                 ),
               ),
-              H(6),
-            ],
-          ),
+            ),
+            SliverFillRemaining(
+              child: _pages[currentIndex],
+            ),
+          ],
         ),
       ),
-      SliverFillRemaining(
-        child: _pages[currentIndex],
-      ),
-    ],
-  ),
-),
 
       bottomNavigationBar: SalomonBottomBar(
         selectedItemColor: AppColor.green2,
         unselectedItemColor: Colors.white,
-
         backgroundColor: AppColor.main1,
         currentIndex: currentIndex,
         onTap: changeTab,
         items: [
           /// Home
           SalomonBottomBarItem(
-            
-            icon: HeroIcon(
+            icon:const  HeroIcon(
               HeroIcons.squares2x2,
               style: HeroIconStyle.outline,
             ),
@@ -186,12 +183,11 @@ class _HomeScreenState extends State<HomeScreen>
               "Dashboard",
               style: AppTheme.bodytext,
             ),
-           
           ),
 
           /// Likes
           SalomonBottomBarItem(
-            icon: HeroIcon(
+            icon:const  HeroIcon(
               HeroIcons.home,
               style: HeroIconStyle.outline,
             ),
@@ -199,12 +195,11 @@ class _HomeScreenState extends State<HomeScreen>
               "Home",
               style: AppTheme.bodytext,
             ),
-           
           ),
 
           /// Search
           SalomonBottomBarItem(
-            icon: HeroIcon(
+            icon:const  HeroIcon(
               HeroIcons.documentChartBar,
               style: HeroIconStyle.outline,
             ),
@@ -212,12 +207,11 @@ class _HomeScreenState extends State<HomeScreen>
               "Loans",
               style: AppTheme.bodytext,
             ),
-           
           ),
 
           /// Profile
           SalomonBottomBarItem(
-            icon: HeroIcon(
+            icon:const  HeroIcon(
               HeroIcons.cog6Tooth,
               style: HeroIconStyle.outline,
             ),
@@ -225,7 +219,6 @@ class _HomeScreenState extends State<HomeScreen>
               "Settings",
               style: AppTheme.bodytext,
             ),
-           
           ),
         ],
       ),
@@ -281,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen>
       //     FlashyTabBarItem(
       //       activeColor:AppColor.green2,
       //       inactiveColor: Colors.white,
-      //       icon: HeroIcon(
+      //       icon:const  HeroIcon(
       //         HeroIcons.home,
       //         style:
       //             HeroIconStyle.outline, // Outlined icons are used by default.
@@ -291,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen>
       //     FlashyTabBarItem(
       //       activeColor:AppColor.green2,
       //       inactiveColor: Colors.white,
-      //       icon: HeroIcon(
+      //       icon:const  HeroIcon(
       //         HeroIcons.squares2x2,
       //         style:
       //             HeroIconStyle.outline, // Outlined icons are used by default.
@@ -301,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen>
       //     FlashyTabBarItem(
       //       activeColor:AppColor.green2,
       //       inactiveColor: Colors.white,
-      //       icon: HeroIcon(
+      //       icon:const  HeroIcon(
       //         HeroIcons.documentChartBar,
       //         style:
       //             HeroIconStyle.outline, // Outlined icons are used by default.
@@ -311,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen>
       //     FlashyTabBarItem(
       //       activeColor:AppColor.green2,
       //       inactiveColor: Colors.white,
-      //       icon: HeroIcon(
+      //       icon:const  HeroIcon(
       //         HeroIcons.cog6Tooth,
       //         style:
       //             HeroIconStyle.outline, // Outlined icons are used by default.

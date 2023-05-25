@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:sksumpc/components/h.dart';
+import 'package:sksumpc/components/v.dart';
 
 import 'package:sksumpc/models/overview.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 import 'package:sksumpc/utils/themes/app_theme.dart';
-import 'package:sksumpc/widgets/graphs/pie_chart.dart';
-import 'package:sksumpc/widgets/h.dart';
-import 'package:sksumpc/widgets/v.dart';
+
 
 class DashBoardCard extends StatelessWidget {
 
@@ -72,8 +72,8 @@ final Overview overview;
                     decoration: BoxDecoration(
                       color: AppColor.green1.withOpacity(0.2),
                     ),
-                    child: const  HeroIcon(
-                      HeroIcons.circleStack,
+                    child:   HeroIcon(
+                       overview.icon ,
                       size: 18,
                       color: AppColor.main,
                       style: HeroIconStyle.solid,

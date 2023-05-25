@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heroicons/heroicons.dart';
+import 'package:sksumpc/components/cards/dash_board_card.dart';
+import 'package:sksumpc/components/v.dart';
 import 'package:sksumpc/models/overview.dart';
+import 'package:sksumpc/utils/helpers/asset.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
-import 'package:sksumpc/widgets/cards/dash_board_card.dart';
-import 'package:sksumpc/widgets/v.dart';
+
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -13,7 +17,7 @@ class DashBoardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.grey2,
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 12,
       ),
       child: Column(
@@ -21,17 +25,71 @@ class DashBoardScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const V(10),
-          Text(
+          const Text(
             'Dashboard',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
             ),
-          ).animate().moveX(begin: -30, end: 0).fadeIn(duration: const Duration(milliseconds: 1300)),
-          const V(16),
+          )
+              .animate()
+              .moveY(begin: -30, end: 0)
+              .fadeIn(duration: const Duration(milliseconds: 700)),
+          const V(8),
+
+          Container(
+              height: 120,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppColor.green1,
+                      AppColor.main,
+                      AppColor.main1,
+                    ]),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  width: 140,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      height:80,
+                      width:80,
+                      Asset.image('undraw_data_processing_yrrv.svg'),
+
+                    ),
+                  )
+                      
+                ).animate()
+                      .moveX(
+                          begin: -10,
+                          end: 0,
+                          curve: Curves.easeInOut,
+                          duration: const Duration(milliseconds: 700,))
+                      .fadeIn(),
+                Flexible(
+                  child: Container(
+                      child: const Center(
+                    child: Text('Overview Highlights',
+                        style: TextStyle(height:1.2, fontSize: 28, color: Colors.white),
+                        textAlign: TextAlign.center),
+                  ).animate()
+                      .moveX(
+                          begin: 10,
+                          end: 0,
+                          curve: Curves.easeInOut,
+                          duration: const Duration(milliseconds: 700,))
+                      .fadeIn()
+                  ),
+                ),
+              ])), 
+          const V(24),
           Expanded(
             child: MasonryGridView.count(
-              physics:const  NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: overview.length,
               crossAxisCount: 2,
               mainAxisSpacing: 10,
@@ -39,7 +97,10 @@ class DashBoardScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return DashBoardCard(
                   overview: overview[index],
-                ).animate().scale(duration: const Duration(milliseconds: 300)).fadeIn(duration: const Duration(milliseconds: 1300));
+                )
+                    .animate()
+                    .scale(duration: const Duration(milliseconds: 700, ),curve: Curves.easeInOut,)
+                    .fadeIn(duration: const Duration(milliseconds: 700),curve: Curves.easeInOut,);
               },
             ),
           ),
