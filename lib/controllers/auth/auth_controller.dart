@@ -1,11 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as d;
-import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
+import 'package:sksumpc/api/api.dart';
+import 'package:sksumpc/api/api_http.dart';
 import 'package:sksumpc/models/account_user.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+
 // import 'package:sksumpc/api/api.dart';
 
 class AuthController extends GetxController {
@@ -14,6 +17,7 @@ class AuthController extends GetxController {
   var isLoginLoading = false.obs;
   var isRegisterLoading = false.obs;
   var isUsersLoading = false.obs;
+  var isUploading = false.obs;
 
   var users = <UserAccount>[].obs;
 
@@ -25,9 +29,9 @@ class AuthController extends GetxController {
     // The below request is the same as above.
 
     try {
-      response = await dio.post(
-        "http://157.245.146.87/api/login",
-        data: {
+      response = await ApiHttp().postRequest(
+        Api.login,
+        {
           'email': 'orbs@gmail.com',
           'password': '@password2!!',
           'device_name': 'opoo1'
@@ -38,15 +42,7 @@ class AuthController extends GetxController {
       update();
 
       print(response.data.toString());
-    } on DioError catch (e) {
-      throw e.message.toString();
-    } on PlatformException catch (e) {
-      throw e.toString();
-    } on SocketException catch (e) {
-      throw e.toString();
     } catch (e) {
-      print(e);
-    } finally {
       isLoginLoading(false);
       update();
     }
@@ -56,33 +52,19 @@ class AuthController extends GetxController {
     isRegisterLoading(true);
     update();
     d.Response response;
-
-    // The below request is the same as above.
-
     try {
-      response = await dio.post(
-        "http://157.245.146.87/api/register",
-        data: {
-          'name': 'brian',
-          'email': 'briaaa@gmail.com',
-          'password': '@password2!!'
-        },
-      );
+      response = await ApiHttp().postRequest(Api.register, {
+        'name': 'brian',
+        'email': 'kate@gmail.com',
+        'password': '@password2!!'
+      });
       isRegisterLoading(false);
       update();
-
-      print(response.data);
-    } on DioError catch (e) {
-      throw e.message.toString();
-    } on PlatformException catch (e) {
-      throw e.toString();
-    } on SocketException catch (e) {
-      throw e.toString();
+      print(response.data.toString());
     } catch (e) {
-      print(e);
-    } finally {
       isRegisterLoading(false);
       update();
+      print(e);
     }
   }
 
@@ -90,32 +72,85 @@ class AuthController extends GetxController {
     isUsersLoading(true);
     update();
     d.Response response;
-
-    // The below request is the same as above.
-
     try {
-      response = await dio.get("http://157.245.146.87/api/users");
+      response = await ApiHttp().getRequest(Api.getUsers);
+      update();
+      users((response.data['data'] as List<dynamic>)
+          .map((e) => UserAccount.fromMap(e as Map<String, dynamic>))
+          .toList());
       isUsersLoading(false);
       update();
+    } catch (e) {
+      isUsersLoading(false);
+      update();
+      print(e.toString());
+    }
+  }
 
+  Future<void> uploadFile(File file) async {
+    isUploading(true);
+    update();
 
-    users((response.data['data'] as List<dynamic>).map((e) => UserAccount.fromMap(e as Map<String, dynamic>)).toList());
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(Api.testUpload),
+    );
 
-      // print(response.data.toString());
+    request.files.add(await http.MultipartFile.fromPath(
+      'file',
+      file.path,
+      contentType: MediaType('image', 'jpeg'), // Replace with actual file type
+    ));
 
-      print(users.length);
-// users((response.data as List<dynamic>).map((e) => UserAccount.fromMap(e as Map<String, dynamic>)).toList());
-    } on DioError catch (e) {
-      throw e.message.toString();
-    } on PlatformException catch (e) {
-      throw e.toString();
-    } on SocketException catch (e) {
-      throw e.toString();
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print('File uploaded');
+      } else {
+        print('File upload failed');
+      }
+      isUploading(false);
+      update();
+
+      // Handle the response as needed
     } catch (e) {
       print(e);
-    } finally {
-      isUsersLoading(false);
+      // Handle any errors
+      isUploading(false);
       update();
     }
   }
+
+
+
+Future<void> uploadFileDio(File file) async {
+  isUploading(true);
+  update();
+  try {
+    String filename = file.path.split('/').last;
+
+    d.FormData formData = d.FormData.fromMap({
+      'file': await d.MultipartFile.fromFile(file.path, filename: filename),
+    });
+
+    var response = await ApiHttp().postRequest(
+      Api.testUpload,
+      formData,
+      contentType:'multipart/form-data'
+    );
+
+    print(response.data.toString());
+    isUploading(false);
+    update();
+    // Handle the response as needed
+  } catch (e) {
+    print(e);
+
+    isUploading(true);
+    update();
+    // Handle any errors
+  }
+}
+
+
 }

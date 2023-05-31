@@ -15,8 +15,10 @@ class Api {
   static Dio get dio => _dio;
 
   static const String login = "${APP_URL}api/login";
-  static const String resgister = "${APP_URL}api/register";
+  static const String register = "${APP_URL}api/register";
   static const String logout = "${APP_URL}api/logout";
   static const String createProduct = "${APP_URL}api/create-product";
   static const String deleteProduct = "${APP_URL}api/delete-product";
+  static const String getUsers = "${APP_URL}api/users";
+  static const String testUpload = "${APP_URL}api/test-upload";
 }
