@@ -21,4 +21,5 @@ class Api {
   static const String deleteProduct = "${APP_URL}api/delete-product";
   static const String getUsers = "${APP_URL}api/users";
   static const String testUpload = "${APP_URL}api/test-upload";
+  static const String infinitScroll = "${APP_URL}api/post";
 }

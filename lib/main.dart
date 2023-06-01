@@ -8,7 +8,7 @@ import 'package:sksumpc/views/auth/register_screen.dart';
 import 'package:sksumpc/views/home_screen.dart';
 import 'package:sksumpc/views/start/boarding_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:sksumpc/views/test/infinite_scroll_example.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,36 +24,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   // final storage = new FlutterSecureStorage();
 
-
-
   Widget authLogic() {
+    return InfiniteScrollExample();
     final storage = FlutterSecureStorage();
 
-  return FutureBuilder<String?>(
-    future: storage.read(key: 'token'), // Read the token from secure storage
-    builder: (context, snapshot) {
-     if (snapshot.connectionState == ConnectionState.waiting) {
-        // Show a loading indicator while checking the token
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (snapshot.hasError) {
-        // Handle any errors that occurred during the future operation
-        return Text('Error: ${snapshot.error}');
-      } else {
-        final token = snapshot.data;
-
-        if (token == null) {
-          return const LoginScreen();
+    return FutureBuilder<String?>(
+      future: storage.read(key: 'token'), // Read the token from secure storage
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show a loading indicator while checking the token
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          // Handle any errors that occurred during the future operation
+          return Text('Error: ${snapshot.error}');
         } else {
-          return const HomeScreen();
+          final token = snapshot.data;
+
+          if (token == null) {
+            return const LoginScreen();
+          } else {
+            return const HomeScreen();
+          }
         }
-      }
-    },
-  );
+      },
+    );
   }
 
   @override
@@ -82,6 +80,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/welcome', page: () => const BoardingScreen()),
         GetPage(name: '/login', page: () => const LoginScreen()),
         GetPage(name: '/register', page: () => const RegisterScreen()),
+        GetPage(
+            name: '/infinit-scroll', page: () =>  InfiniteScrollExample()),
       ],
     );
   }
