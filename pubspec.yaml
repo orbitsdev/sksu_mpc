@@ -52,7 +52,7 @@ dependencies:
   fluttertoast: ^8.2.1
   timeago: ^3.4.0
   flutter_native_splash: ^2.2.19
-  intl: ^0.18.1
+  intl: ^0.18.0
   flutter_staggered_grid_view: ^0.6.2
   flashy_tab_bar2: ^0.0.6
   heroicons: ^0.8.0
@@ -61,6 +61,9 @@ dependencies:
   fl_chart: ^0.62.0
   flutter_secure_storage: ^8.0.0
   flutter_form_builder: ^9.0.0
+  form_builder_validators: ^9.0.0
+  package_info_plus: ^4.0.2
+  device_info_plus: ^9.0.2
   
 
 dev_dependencies:

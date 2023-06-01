@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:sksumpc/components/v.dart';
+import 'package:sksumpc/components/progress/loader.dart';
 import 'package:sksumpc/controllers/auth/auth_controller.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -19,16 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   File? image;
 
-  
-
   @override
   initState() {
-    authController.getUsers();
-
+    // authController.getUsers();
     super.initState();
   }
 
-    Future<void> chooseImage() async {
+  Future<void> chooseImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -38,88 +37,101 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  
+void submit(BuildContext context) async {
+  if (_formKey.currentState!.validate()) {
+    final email = _formKey.currentState!.fields['email']?.value;
+    final password = _formKey.currentState!.fields['password']?.value;
+    await authController.login(
+      email: email.trim(),
+      password: password.trim(),
+      parentContext: context,
+    );
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Laravel Api'),
+        title: const Text('Laravel Api'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: GetBuilder<AuthController>(builder: (controller) {
-            return Column(mainAxisSize: MainAxisSize.max, children: [
-              Container(
-                height: 300,
-                constraints: BoxConstraints(
-                  minHeight: 300,
+          child: FormBuilder(
+  key: _formKey,
+  child: Obx(() {
+    final parentContext = Get.context;
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        FormBuilderTextField(
+          name: 'email',
+            initialValue: 'briaa@gmail.com',
+          decoration: InputDecoration(
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(),
+            ),
+            labelText: 'Email address',
+          ),
+          validator: FormBuilderValidators.required(),
+        ),
+        const SizedBox(height: 10),
+        FormBuilderTextField(
+          name: 'password',
+              initialValue: '@password2!!',
+          decoration: InputDecoration(
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(),
+            ),
+            labelStyle: TextStyle(),
+            labelText: 'Password',
+          ),
+          obscureText: !_isShowPassword,
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(),
+            FormBuilderValidators.minLength(6),
+          ]),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: Checkbox(
+                side: const BorderSide(color: Colors.blue),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: ListView.builder(
-                    itemCount: controller.users.length,
-                    itemBuilder: (context, index) {
-                      final user = controller.users[index];
-                      return Container(child: Text('${user.name}'));
-                    }),
+                value: _isShowPassword,
+                onChanged: (newValue) {
+                  setState(() {
+                    _isShowPassword = newValue!;
+                  });
+                },
               ),
+            ),
+          ],
+        ),
+        authController.isLoginLoading.value
+            ? Loader(width: 24, height: 24)
+            :ElevatedButton(
+                  onPressed: () => submit(context),
+                  child: Text('Login'),
+                ),
+      ],
+    );
+  }),
+),
 
-
-               Align(
-                    alignment: Alignment.center,
-                    child: GestureDetector(
-                      onTap: chooseImage,
-                      child: Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: image != null
-                            ? Image.file(
-                                width: double.infinity,
-                                image!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (BuildContext context,
-                                    Object exception, StackTrace? stackTrace) {
-                                  // Handle image load errors here
-                                  return Center(
-                                      child: Text('Error loading image'));
-                                },
-                              )
-                            : Center(
-                                child: Icon(Icons.image),
-                              ),
-                      ),
-                    ),
-                  ),
-
-
-                  const V(20),
-             if(image !=null) controller.isUploading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: ()=> controller.uploadFileDio(image as File), child: Text('Upload')),
-              const V(10),
-              controller.isUsersLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: controller.getUsers, child: Text('Users')),
-              const V(10),
-              controller.isUsersLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: controller.getUsers, child: Text('Users')),
-              const V(10),
-              controller.isLoginLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: controller.login, child: Text('Login')),
-              const V(10),
-              controller.isRegisterLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: controller.register, child: Text('Register')),
-            ]);
-          }),
         ),
       ),
     );

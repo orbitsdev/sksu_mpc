@@ -1,9 +1,12 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 import 'package:sksumpc/components/h.dart';
+import 'package:sksumpc/controllers/auth/auth_controller.dart';
 import 'package:sksumpc/utils/helpers/asset.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 import 'package:sksumpc/utils/themes/app_theme.dart';
@@ -20,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  final authController = Get.find<AuthController>();
+  final storage = new FlutterSecureStorage();
   List<Widget> _pages = [
     DashBoardScreen(),
     LoansScreen(),
@@ -36,11 +41,17 @@ class _HomeScreenState extends State<HomeScreen>
 
   int currentIndex = 1;
   late TabController tabController;
-
+  late String token;
   @override
   void initState() {
     tabController = TabController(length: _pages.length, vsync: this);
+
     super.initState();
+  }
+
+  void readToken() async {
+    token = await storage.read(key: 'token') as String;
+    print(token);
   }
 
   void changeTab(int index) {
@@ -63,24 +74,28 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text('More Features'),
-            ),
-            ListTile(
-              title: Text('More Features'),
-            ),
-            ListTile(
-              title: Text('More Features'),
-            ),
-            ListTile(
-              title: Text('More Features'),
-            ),
-            ListTile(
-              title: Text('More Features'),
-            ),
-          ],
+        child: SafeArea(
+          child: ListView(
+            children: [
+              ListTile(
+                onTap: ()=>authController.logout(context:context),
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+              ),
+              ListTile(
+                title: Text('More Features'),
+              ),
+              ListTile(
+                title: Text('More Features'),
+              ),
+              ListTile(
+                title: Text('More Features'),
+              ),
+              ListTile(
+                title: Text('More Features'),
+              ),
+            ],
+          ),
         ),
       ),
       // appBar: AppBar(
@@ -175,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen>
         items: [
           /// Home
           SalomonBottomBarItem(
-            icon:const  HeroIcon(
+            icon: const HeroIcon(
               HeroIcons.squares2x2,
               style: HeroIconStyle.outline,
             ),
@@ -187,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen>
 
           /// Likes
           SalomonBottomBarItem(
-            icon:const  HeroIcon(
+            icon: const HeroIcon(
               HeroIcons.home,
               style: HeroIconStyle.outline,
             ),
@@ -199,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen>
 
           /// Search
           SalomonBottomBarItem(
-            icon:const  HeroIcon(
+            icon: const HeroIcon(
               HeroIcons.documentChartBar,
               style: HeroIconStyle.outline,
             ),
@@ -211,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen>
 
           /// Profile
           SalomonBottomBarItem(
-            icon:const  HeroIcon(
+            icon: const HeroIcon(
               HeroIcons.cog6Tooth,
               style: HeroIconStyle.outline,
             ),
