@@ -12,13 +12,12 @@ class Overview {
 }
 
 List<Overview> overview = [
-  Overview(header: 'Total Members', subheader: '24', icon: HeroIcons.users),
-  Overview(
-      header: 'Typ1 Member  1', subheader: '23', icon: HeroIcons.briefcase),
-  Overview(
-      header: 'Type2 Member ',
-      subheader: '54,00',
-      icon: HeroIcons.currencyDollar),
-  Overview(
-      header: 'Total Loans', subheader: '100,000', icon: HeroIcons.creditCard),
+  Overview(header: 'Total Members', subheader: 'Registered', icon: HeroIcons.users),
+  // Overview(header: 'Other Information', subheader: '0', icon: HeroIcons.briefcase),
+  // Overview(
+  //     header: 'Your Desire Information ',
+  //     subheader: '54,00',
+  //     icon: HeroIcons.currencyDollar),
+  // Overview(
+  //     header: 'Example Total Loans', subheader: '100,000', icon: HeroIcons.creditCard),
 ];

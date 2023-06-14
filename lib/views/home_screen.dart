@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
     // ),
   ];
 
-  int currentIndex = 1;
+  int currentIndex = 0;
   late TabController tabController;
   late String token;
   @override
@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     super.initState();
   }
+
 
   void readToken() async {
     token = await storage.read(key: 'token') as String;

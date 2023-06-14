@@ -9,9 +9,14 @@ import 'package:sksumpc/models/overview.dart';
 import 'package:sksumpc/utils/helpers/asset.dart';
 import 'package:sksumpc/utils/themes/app_color.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
 
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,20 +113,26 @@ class DashBoardScreen extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               itemBuilder: (context, index) {
-                return DashBoardCard(
-                  overview: overview[index],
-                )
-                    .animate()
-                    .scale(
-                      duration: const Duration(
-                        milliseconds: 700,
+                final Overview data = overview[index];
+                return GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: DashBoardCard(
+                    overview: overview[index],
+                  )
+                      .animate()
+                      .scale(
+                        duration: const Duration(
+                          milliseconds: 700,
+                        ),
+                        curve: Curves.easeInOut,
+                      )
+                      .fadeIn(
+                        duration: const Duration(milliseconds: 700),
+                        curve: Curves.easeInOut,
                       ),
-                      curve: Curves.easeInOut,
-                    )
-                    .fadeIn(
-                      duration: const Duration(milliseconds: 700),
-                      curve: Curves.easeInOut,
-                    );
+                );
               },
             ),
           ),
