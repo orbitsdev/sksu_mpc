@@ -27,7 +27,9 @@ class _MyAppState extends State<MyApp> {
   // final storage = new FlutterSecureStorage();
 
   Widget authLogic() {
-    return InfiniteScrollExample();
+    // return LoginScreen();
+     return HomeScreen();
+    // return InfiniteScrollExample();
     final storage = FlutterSecureStorage();
 
     return FutureBuilder<String?>(
@@ -80,8 +82,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/welcome', page: () => const BoardingScreen()),
         GetPage(name: '/login', page: () => const LoginScreen()),
         GetPage(name: '/register', page: () => const RegisterScreen()),
-        GetPage(
-            name: '/infinit-scroll', page: () =>  InfiniteScrollExample()),
+        GetPage(name: '/infinit-scroll', page: () => InfiniteScrollExample()),
       ],
     );
   }

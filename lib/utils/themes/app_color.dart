@@ -20,4 +20,7 @@ class AppColor {
   static const Color secondaryText = Color.fromARGB(255, 136, 143, 135);
 
   static const Color borderLight = Color(0xffF1F1FF);
+
+  static const Color bggreen1 = Color(0xff139E02);
+  static const Color bggreen2 = Color(0xff118001);
 }

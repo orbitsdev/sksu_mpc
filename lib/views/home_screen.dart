@@ -28,15 +28,15 @@ class _HomeScreenState extends State<HomeScreen>
   List<Widget> _pages = [
     DashBoardScreen(),
     LoansScreen(),
-    Container(
-      child: Center(child: Text('page3')),
-    ),
-    Container(
-      child: Center(child: Text('page4')),
-    ),
-    Container(
-      child: Text('page4'),
-    ),
+    // Container(
+    //   child: Center(child: Text('Your Desire Data')),
+    // ),
+    // Container(
+    //   child: Center(child: Text('Your Desire Data')),
+    // ),
+    // Container(
+    //   child: Text('Your Desire Data'),
+    // ),
   ];
 
   int currentIndex = 1;
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: ListView(
             children: [
               ListTile(
-                onTap: ()=>authController.logout(context:context),
+                onTap: () => authController.logout(context: context),
                 leading: Icon(Icons.logout),
                 title: Text('Logout'),
               ),
@@ -203,38 +203,18 @@ class _HomeScreenState extends State<HomeScreen>
           /// Likes
           SalomonBottomBarItem(
             icon: const HeroIcon(
-              HeroIcons.home,
+              HeroIcons.users,
               style: HeroIconStyle.outline,
             ),
             title: Text(
-              "Home",
+              "Members",
               style: AppTheme.bodytext,
             ),
           ),
 
           /// Search
-          SalomonBottomBarItem(
-            icon: const HeroIcon(
-              HeroIcons.documentChartBar,
-              style: HeroIconStyle.outline,
-            ),
-            title: Text(
-              "Loans",
-              style: AppTheme.bodytext,
-            ),
-          ),
 
           /// Profile
-          SalomonBottomBarItem(
-            icon: const HeroIcon(
-              HeroIcons.cog6Tooth,
-              style: HeroIconStyle.outline,
-            ),
-            title: Text(
-              "Settings",
-              style: AppTheme.bodytext,
-            ),
-          ),
         ],
       ),
 

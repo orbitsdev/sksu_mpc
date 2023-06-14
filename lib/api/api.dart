@@ -7,7 +7,7 @@
 
 import 'package:dio/dio.dart';
 
-const String APP_URL = "http://157.245.146.87/";
+const String APP_URL = "http://139.59.126.255/";
 
 class Api {
   static Dio _dio = Dio();
@@ -22,4 +22,9 @@ class Api {
   static const String getUsers = "${APP_URL}api/users";
   static const String testUpload = "${APP_URL}api/test-upload";
   static const String infinitScroll = "${APP_URL}api/post";
+
+  static const String totalMembers = '${APP_URL}api/v1/total-member';
+  static const String memberDetails = '${APP_URL}api/v1/member-details';
+  static const String allMembers = '${APP_URL}api/v1/all-members';
+  static const String members = '${APP_URL}api/v1/members';
 }

@@ -56,11 +56,8 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
   Future<void> fetchData() async {
     setState(() => isLoading = true);
 
-    final response =
-        await ApiHttp().getRequest("${Api.infinitScroll}/$limit/$offset}");
-    List<Post> newData = (response.data as List<dynamic>)
-        .map((e) => Post.fromMap(e as Map<String, dynamic>))
-        .toList();
+    final response = await ApiHttp().getRequest("${Api.infinitScroll}/$limit/$offset}");
+    List<Post> newData = (response.data as List<dynamic>) .map((e) => Post.fromMap(e as Map<String, dynamic>)).toList();
     setState(() => isLoading = false);
     if (newData.isNotEmpty) {
       setState(() {
@@ -112,6 +109,7 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
                               ? Text('Load More Data ')
                               : Text('No More Data')));
             }
+            
             // if (index < posts.length) {
             //   return ListTile(
             //     title: Text(post.title),
@@ -133,6 +131,7 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
             // } else {
             //   return Container();
             // }
+
           },
         ),
       ),
